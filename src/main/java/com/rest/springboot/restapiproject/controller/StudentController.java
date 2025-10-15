@@ -1,5 +1,7 @@
 package com.rest.springboot.restapiproject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,6 +27,15 @@ public class StudentController {
 		return studentService.save(studentRequest);
 	}
 
+	@GetMapping
+	public List<StudentResponse> getAllStudents() {
+		
+		return studentService.findAll();
+	}
+	
+	
+	
+	
 	@GetMapping("/{id}")
 	public StudentResponse findById(@PathVariable Long id) {
 		return studentService.findById(id);
@@ -39,6 +50,7 @@ public class StudentController {
 	public StudentResponse patch(@PathVariable Long id, @RequestBody StudentRequest studentRequest) {
 		return studentService.patch(id, studentRequest);
 	}
+	
 
 	// @GetMapping("/")
 	// public List<Student> findAll() {

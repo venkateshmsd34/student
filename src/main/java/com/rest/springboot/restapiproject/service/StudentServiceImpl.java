@@ -67,7 +67,16 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<StudentResponse> findAll() {
-		return null;
+		List<Student> students = studentRepository.findAll();
+		
+		// convert student list to student response
+		
+		List<StudentResponse> response = students
+				.stream()
+				.map(student -> modelMapper.map(student, StudentResponse.class))
+				.toList();
+		
+		return response;
 	}
 
 	@Override
