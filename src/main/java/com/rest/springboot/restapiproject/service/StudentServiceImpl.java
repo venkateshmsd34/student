@@ -49,20 +49,22 @@ public class StudentServiceImpl implements StudentService {
 	public StudentResponse update(Long id, StudentRequest request) {
 		Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student no found"));
 
-		student.setName(request.getName());
-		student.setAddress(request.getAddress());
-		student.setUsername(request.getUsername());
-		student.setPassword(request.getPassword());
+//		student.setName(request.getName());
+//		student.setAddress(request.getAddress());
+//		student.setUsername(request.getUsername());
+//		student.setPassword(request.getPassword());
+		
+		modelMapper.map(request, student);
 
-		Student savedStudent = studentRepository.save(student);
+		Student updatedStudent = studentRepository.save(student);
 
-		StudentResponse response = new StudentResponse();
-		response.setId(savedStudent.getId());
-		response.setName(savedStudent.getName());
-		response.setAddress(savedStudent.getAddress());
-		response.setUsername(savedStudent.getUsername());
+//		StudentResponse response = new StudentResponse();
+//		response.setId(savedStudent.getId());
+//		response.setName(savedStudent.getName());
+//		response.setAddress(savedStudent.getAddress());
+//		response.setUsername(savedStudent.getUsername());
 
-		return response;
+		return modelMapper.map(updatedStudent, StudentResponse.class);
 	}
 
 	@Override
@@ -98,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public void delete(Long id) {
-
+		studentRepository.deleteById(id);
 	}
 
 	@Override

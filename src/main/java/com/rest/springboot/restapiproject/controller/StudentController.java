@@ -3,6 +3,7 @@ package com.rest.springboot.restapiproject.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +30,9 @@ public class StudentController {
 
 	@GetMapping
 	public List<StudentResponse> getAllStudents() {
-		
 		return studentService.findAll();
 	}
-	
-	
-	
-	
+
 	@GetMapping("/{id}")
 	public StudentResponse findById(@PathVariable Long id) {
 		return studentService.findById(id);
@@ -45,12 +42,17 @@ public class StudentController {
 	public StudentResponse updateById(@PathVariable Long id, @RequestBody StudentRequest studentRequest) {
 		return studentService.update(id, studentRequest);
 	}
-	
+
 	@PatchMapping("/{id}")
 	public StudentResponse patch(@PathVariable Long id, @RequestBody StudentRequest studentRequest) {
 		return studentService.patch(id, studentRequest);
 	}
-	
+
+	@DeleteMapping("/{id}")
+	public String deleteById(@PathVariable Long id) {
+		studentService.delete(id);
+		return "deleted with the " + id;
+	}
 
 	// @GetMapping("/")
 	// public List<Student> findAll() {
