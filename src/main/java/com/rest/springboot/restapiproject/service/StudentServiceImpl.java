@@ -105,27 +105,49 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentResponse patch(Long id, StudentRequest request) {
-		Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
+		 Student student = studentRepository.findById(id)
+	                .orElseThrow(() -> new RuntimeException("Student not found"));
 
-		if (request.getName() != null)
-			student.setName(request.getName());
-		if (request.getAddress() != null)
-			student.setAddress(request.getAddress());
-		if (request.getUsername() != null)
-			student.setUsername(request.getUsername());
-		if (request.getPassword() != null)
-			student.setPassword(request.getPassword());
+	        // ✅ Apply only non-null fields from request to student
+	        modelMapper.map(request, student);
 
-		Student savedStudent = studentRepository.save(student);
+	        Student savedStudent = studentRepository.save(student);
 
-		StudentResponse response = new StudentResponse();
-
-		response.setId(savedStudent.getId());
-		response.setName(savedStudent.getName());
-		response.setAddress(savedStudent.getAddress());
-		response.setUsername(savedStudent.getUsername());
-
-		return response;
+	        // ✅ Convert back to response DTO
+	        return modelMapper.map(savedStudent, StudentResponse.class);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
+//
+//		if (request.getName() != null)
+//			student.setName(request.getName());
+//		if (request.getAddress() != null)
+//			student.setAddress(request.getAddress());
+//		if (request.getUsername() != null)
+//			student.setUsername(request.getUsername());
+//		if (request.getPassword() != null)
+//			student.setPassword(request.getPassword());
+//
+//		Student savedStudent = studentRepository.save(student);
+//
+//		StudentResponse response = new StudentResponse();
+//
+//		response.setId(savedStudent.getId());
+//		response.setName(savedStudent.getName());
+//		response.setAddress(savedStudent.getAddress());
+//		response.setUsername(savedStudent.getUsername());
+//
+//		return response;
 	}
 
 }
