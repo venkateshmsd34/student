@@ -18,7 +18,7 @@ import com.rest.springboot.restapiproject.dto.StudentResponse;
 import com.rest.springboot.restapiproject.service.StudentService;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/api/students")
 public class StudentController {
 	@Autowired
 	StudentService studentService;
