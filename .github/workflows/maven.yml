@@ -22,14 +22,14 @@ jobs:
  
       # Step 3: Build JAR
       - name: Build JAR
-        run: mvn -B package -DskipTests --file student/pom.xml
+        run: mvn -B package -DskipTests --file restapiproject/pom.xml
  
       # Step 4: Auto-generate Dockerfile
       - name: Create Dockerfile
         run: |
           echo 'FROM eclipse-temurin:17-jdk' > Dockerfile
           echo 'WORKDIR /app' >> Dockerfile
-          echo 'COPY student/target/*.jar app.jar' >> Dockerfile
+          echo 'COPY restapiproject/target/*.jar app.jar' >> Dockerfile
           echo 'EXPOSE 8080' >> Dockerfile
           echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
       # Step 5: Login to Docker Hub
