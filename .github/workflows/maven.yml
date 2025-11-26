@@ -22,14 +22,14 @@ jobs:
  
       # Step 3: Build JAR
       - name: Build JAR
-        run: mvn -B package -DskipTests --file doctor-service/pom.xml
+        run: mvn -B package -DskipTests --file student/pom.xml
  
       # Step 4: Auto-generate Dockerfile
       - name: Create Dockerfile
         run: |
           echo 'FROM eclipse-temurin:17-jdk' > Dockerfile
           echo 'WORKDIR /app' >> Dockerfile
-          echo 'COPY doctor-service/target/*.jar app.jar' >> Dockerfile
+          echo 'COPY student/target/*.jar app.jar' >> Dockerfile
           echo 'EXPOSE 8080' >> Dockerfile
           echo 'ENTRYPOINT ["java", "-jar", "app.jar"]' >> Dockerfile
       # Step 5: Login to Docker Hub
@@ -42,11 +42,11 @@ jobs:
       # Step 6: Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/doctor-service:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/student:latest .
  
       # Step 7: Push Docker image
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/doctor-service:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/student:latest
 
  
